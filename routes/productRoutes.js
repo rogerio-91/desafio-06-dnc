@@ -6,7 +6,7 @@ const router = express.Router();
 //Controlador de produtos
 const productController = require('../controllers/productController');
 
-//Rotas para produtos
+//Rotas para o CRUD de produtos
 
 router.get('/products', productController.getProducts);
 router.get('/products/:id', productController.getProductById);
