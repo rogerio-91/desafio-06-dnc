@@ -11,13 +11,13 @@ conn();
 const productRoutes = require('./routes/productRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 // const saleRoutes = require('./routes/saleRoutes');
-// const stockRoutes = require('./routes/stockRoutes');
+const stockRoutes = require('./routes/stockRoutes');
 
 // Definição das rotas da aplicação
 app.use('/api', productRoutes);
 app.use('/api', clientRoutes);
 // app.use('/api', saleRoutes);
-// app.use('/api', stockRoutes);
+app.use('/api', stockRoutes);
 
 
 
