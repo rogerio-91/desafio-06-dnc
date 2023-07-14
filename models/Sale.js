@@ -6,9 +6,9 @@ const { Schema } = mongoose;
 
 const saleSchema = new Schema(
     {
-        client: {
+        order: {
             type: Schema.Types.ObjectId,
-            ref: 'Client',
+            ref: 'Order',
             required: true
         },
         data: {

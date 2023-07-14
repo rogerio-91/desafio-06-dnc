@@ -61,7 +61,7 @@ exports.deleteStock = async (req, res) => {
     const { id } = req.params;
     try {
         const stock = await Stock.findByIdAndDelete(id);
-        if(!product){
+        if(!stock){
             return res.status(404).json({ message: 'Estoque não encontrado'})
         }
         res.json({message: 'Estoque excluído com sucesso'});
@@ -69,4 +69,4 @@ exports.deleteStock = async (req, res) => {
         res.status(500).json({ message: 'Erro ao excluir o estoque, verifique os dados'})
     }
 
-}
+};
