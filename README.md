@@ -20,7 +20,7 @@ npm i -- save express mongoose;
 
 Antes de executar o projeto, você precisa configurar a conexão com o banco de dados. 
 
-Abra o arquivo db/conn.js e atualize a URL de conexão com o seu próprio endereço do MongoDB e Password.
+Abra o arquivo db/conn.js e atualize a URL de conexão com o seu próprio endereço do MongoDB e Password ou crie uma variável de ambiente como no exemplo ".env.example".
 
 Agora você pode iniciar o servidor. Execute o seguinte comando no terminal:
 
