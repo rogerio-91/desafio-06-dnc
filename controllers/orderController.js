@@ -5,9 +5,8 @@ const { Order } = require('../models/Order');
 exports.getOrders = async (req, res) => {
     try {
         const orders = await Order.find()
-            .populate('client')
-            .populate('product')
-            .populate('stock');
+            .populate('sale')
+            .populate('product');
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao obter a lista de pedidos' });
@@ -20,10 +19,8 @@ exports.getOrderById = async (req, res) => {
     const { id } = req.params;
     try {
         const order = await Order.findById(id)
-            .populate('client')
-            .populate('product')
-            .populate('stock');
-        ;
+            .populate('sale')
+            .populate('product');
         if (!order) {
             return res.status(404).json({ message: 'Pedido não encontrado!' })
         }
@@ -38,8 +35,8 @@ exports.getOrderById = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
     try {
-        const { client, product, stock } = req.body;
-        const order = new Order({ client, product, stock });
+        const { sale, product, quantity } = req.body;
+        const order = new Order({ sale, product, quantity });
         const savedOrder = await order.save();
         res.status(201).json(savedOrder);
     } catch (error) {
@@ -51,9 +48,9 @@ exports.createOrder = async (req, res) => {
 
 exports.updateOrder = async (req, res) => {
     const { id } = req.params;
-    const { client, product, stock } = req.body;
+    const { sale, product, quantity } = req.body;
     try {
-        const order = await Order.findByIdAndUpdate(id, { client, product, stock }, { new: trusted });
+        const order = await Order.findByIdAndUpdate(id, { sale, product, quantity }, { new: true });
         if (!order) {
             return res.status(404).json({ message: 'Pedido não encontrado' })
         }

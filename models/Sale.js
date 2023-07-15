@@ -6,9 +6,9 @@ const { Schema } = mongoose;
 
 const saleSchema = new Schema(
     {
-        order: {
+        client: {
             type: Schema.Types.ObjectId,
-            ref: 'Order',
+            ref: 'Client',
             required: true
         },
         data: {
@@ -21,4 +21,5 @@ const saleSchema = new Schema(
 const Sale = mongoose.model('Sale', saleSchema);
 
 module.exports = Sale;
+    
 

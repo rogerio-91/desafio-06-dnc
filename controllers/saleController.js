@@ -1,11 +1,11 @@
-const Sale = require('../models/Sale');
+const Sale  = require('../models/Sale');
 
 // Obter a lista das Vendas 
 
 exports.getSales = async (req, res) => {
     try {
-        const sales = await Sale.find();
-            // .populate('order');
+        const sales = await Sale.find()
+            .populate('client');
         res.json(sales);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao obter a lista das vendas' })
@@ -31,8 +31,8 @@ exports.getSaleById = async (req, res) => {
 
 exports.createSale = async (req, res) => {
     try {
-        const { order, data } = req.body;
-        const sale = new Sale({ order });
+        const { client } = req.body;
+        const sale = new Sale({ client });
         const savedSale = await sale.save();
         res.status(201).json(savedSale);
     } catch (error) {
@@ -45,9 +45,9 @@ exports.createSale = async (req, res) => {
 
 exports.updateSale = async (req, res) => {
     const { id } = req.params;
-    const { order, data } = req.body;
+    const { client } = req.body;
     try {
-        const sale = await Sale.findByIdAndUpdate(id, { order }, { new: true });
+        const sale = await Sale.findByIdAndUpdate(id, { client }, { new: true });
         if (!order) {
             return res.status(404).json({ message: 'Venda não encontrada' })
         }

@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const orderSchema = new Schema({
-    client: {
+    sale: {
         type: Schema.Types.ObjectId,
-        ref: 'Client',
+        ref: 'Sale',
         required: true
     },
     product: {
@@ -15,9 +15,8 @@ const orderSchema = new Schema({
         ref: 'Product',
         required: true
     },
-    stock: {
-        type: Schema.Types.ObjectId,
-        ref:'Stock',
+    quantity: {
+        type: Number,
         required: true
     },
 },
