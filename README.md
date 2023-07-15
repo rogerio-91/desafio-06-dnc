@@ -33,6 +33,9 @@ O servidor será iniciado na porta 3000 e também que o database está conectado
 
 O banco de dados utilizado neste projeto é o MongoDB. Ele possui as seguintes coleções:
 
+![Descrição da Imagem](src/image/desafio-06-dnc.jpg)
+
+
 Produtos
 ID: identificador único do produto
 Nome: nome do produto
