@@ -16,7 +16,6 @@ const saleSchema = new Schema(
             default: Date.now
         }
     },
-    { timestamps: true }
 );
 
 const Sale = mongoose.model('Sale', saleSchema);

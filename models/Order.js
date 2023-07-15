@@ -17,11 +17,16 @@ const orderSchema = new Schema({
     },
     stock: {
         type: Schema.Types.ObjectId,
-        ref: 'Stock',
+        ref:'Stock',
         required: true
-    }
-});
+    },
+},
+{timestamps: true}
+);
 
 const Order = mongoose.model('Order', orderSchema);
 
-module.exports = Order;
+module.exports = {
+    Order,
+    orderSchema
+};

@@ -1,10 +1,13 @@
-const Order = require ('../models/Order'); 
+const { Order } = require('../models/Order');
 
 // Obter a lista dos Pedidos 
 
 exports.getOrders = async (req, res) => {
     try {
-        const orders = await Order.find();
+        const orders = await Order.find()
+            .populate('client')
+            .populate('product')
+            .populate('stock');
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao obter a lista de pedidos' });
@@ -13,14 +16,18 @@ exports.getOrders = async (req, res) => {
 
 // Obter um pedido pelo Id 
 
-exports.getClientById = async (req, res) => {
-    const { id } = req.params; 
+exports.getOrderById = async (req, res) => {
+    const { id } = req.params;
     try {
-        const order = await Order.findById(id);
-        if(!order){
-        return res.status(404).json({message: 'Pedido não encontrado!'})
+        const order = await Order.findById(id)
+            .populate('client')
+            .populate('product')
+            .populate('stock');
+        ;
+        if (!order) {
+            return res.status(404).json({ message: 'Pedido não encontrado!' })
         }
-     res.json(order);   
+        res.json(order);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao obter o pedido do cliente' });
 
@@ -31,8 +38,8 @@ exports.getClientById = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
     try {
-        const {client, product, stock} = req.body;
-        const order = new Order ({ client, product, stock});
+        const { client, product, stock } = req.body;
+        const order = new Order({ client, product, stock });
         const savedOrder = await order.save();
         res.status(201).json(savedOrder);
     } catch (error) {
@@ -44,11 +51,11 @@ exports.createOrder = async (req, res) => {
 
 exports.updateOrder = async (req, res) => {
     const { id } = req.params;
-    const {client, product, stock} = req.body;
+    const { client, product, stock } = req.body;
     try {
-        const order = await Order.findByIdAndUpdate(id,{ client, product, stock}, {new: ture});
-        if(!order){
-        return res.status(404).json({message: 'Pedido não encontrado'})
+        const order = await Order.findByIdAndUpdate(id, { client, product, stock }, { new: trusted });
+        if (!order) {
+            return res.status(404).json({ message: 'Pedido não encontrado' })
         }
         res.status(order);
     } catch (error) {
@@ -56,18 +63,17 @@ exports.updateOrder = async (req, res) => {
     }
 };
 
-// Excluir um cliente
+// Excluir um pedido
 
-exports.deleteOrder = async ( req, res) => {
+exports.deleteOrder = async (req, res) => {
     const { id } = req.params;
     try {
         const order = await Order.findByIdAndDelete(id);
-        if(!order){
-            return res.status(404).json({message: 'Pedido não encontrado'})
+        if (!order) {
+            return res.status(404).json({ message: 'Pedido não encontrado' })
         }
-        res.json({message: 'Pedido excluido com sucesso!'})
+        res.json({ message: 'Pedido excluido com sucesso!' })
     } catch (error) {
-        res.status(500).json({ message: 'Erro ao excluir o pedido do cliente, verifique os dados!'});
+        res.status(500).json({ message: 'Erro ao excluir o pedido do cliente, verifique os dados!' });
     }
-
-}
+};
